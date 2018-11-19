@@ -5,7 +5,7 @@
     <div class="card p-3 m-3">
         <h1>{{$post->title}}</h1>
         <div>
-            {{$post->body}}
+            {!!$post->body!!}
         </div>
         <hr>
         <small>Written on {{$post->created_at}}</small>

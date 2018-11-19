@@ -20,13 +20,16 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">  
-        <main class="py-4">
-            @include('inc.navbar')
-            <div class="container">
-                @yield('content')
-            </div>
-        </main>
+    <div id="app" class="">  
+        @include('inc.navbar')
+        <div class="container p-3">
+            @include('inc.messages')
+            @yield('content')
+        </div>
     </div>
+    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace( 'article-ckeditor' );
+    </script>
 </body>
 </html>

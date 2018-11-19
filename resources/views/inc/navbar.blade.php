@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
             {{ config('app.name', 'Laravel') }}
@@ -20,7 +20,7 @@
                     <a class="nav-link" href="/services">Services</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/posts">Blog</a>
+                    <a class="nav-link" href="/posts">Post</a>
                 </li>
             </ul>
 
@@ -43,6 +43,7 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/posts/create">Create Post</a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                                 document.getElementById('logout-form').submit();">
