@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Login App') }}</title>
+    <title>{{ config('app.name', 'Mohsin Gram') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -25,7 +25,14 @@
         <div class="container p-3">
             @include('inc.messages')
             @yield('content')
+            <footer class="footer float-right">
+                <div class="container">
+                    <span class="text-muted"></span>
+                </div>
+            </footer>
         </div>
+            
+        
     </div>
     <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
     <script>
