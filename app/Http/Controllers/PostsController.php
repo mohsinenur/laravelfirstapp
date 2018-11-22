@@ -40,7 +40,12 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        if (auth()->user()->hasRole('writer|admin')){
+            return view('posts.create');
+        }else{
+            $posts = Post::orderBy('created_at', 'desc')->paginate(2);
+            return view('posts.index')->with('posts', $posts);
+        }
     }
 
     /**
@@ -86,8 +91,15 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::find($id);
-        return view('posts.edit')->with('post', $post);
+        if (auth()->user()->hasRole('editor|admin')){
+            // as you are not editor or admin, only see post
+            $post = Post::find($id);
+            return view('posts.edit')->with('post', $post);
+        }else{
+            // go to edit post
+            $post = Post::find($id);
+            return view('posts.show')->with('post', $post);
+        }
     }
 
     /**

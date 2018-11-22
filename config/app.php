@@ -159,12 +159,16 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        Collective\Html\HtmlServiceProvider::class,
-        Unisharp\Ckeditor\ServiceProvider::class,
 
         /*
          * Package Service Providers...
          */
+        Collective\Html\HtmlServiceProvider::class,
+        Unisharp\Ckeditor\ServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
+        Yajra\DataTables\ButtonsServiceProvider::class,
+        Yajra\DataTables\FractalServiceProvider::class,
 
         /*
          * Application Service Providers...
