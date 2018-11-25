@@ -63,7 +63,9 @@ class DashboardController extends Controller
             // return specific users post
             $user_id = auth()->user()->id;
             $user = User::find($user_id);
-            return view('dashboard')->with('posts', $user->posts);
+            //return view('dashboard')->with('posts', $user->posts);
+            $post = Post::paginate(4);
+            return view('dashboard')->with('posts', $post);
         }
     }
 }

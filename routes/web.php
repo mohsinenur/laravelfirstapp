@@ -31,4 +31,8 @@ Auth::routes();
 
 Route::get('/dashboard', 'DashboardController@index');
 
+//you can add new method inside resource by this. add new route before resource
+Route::put('/users/{user}/passreset', 'UsersController@passreset');
 Route::resource('users', 'UsersController');
+
+

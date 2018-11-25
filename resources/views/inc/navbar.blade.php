@@ -11,16 +11,16 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/about">About</a>
+                <a class="nav-link" href="{{ url('/about') }}">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/services">Services</a>
+                    <a class="nav-link" href="{{ url('/services') }}">Services</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/posts">Blog</a>
+                <a class="nav-link" href="{{ url('posts') }}">Blog</a>
                 </li>
             </ul>
 
@@ -44,6 +44,9 @@
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/dashboard">Dashboard</a>
+                            @role('admin')
+                            <a class="dropdown-item" href="/users">Users</a>
+                            @endrole
                             @role('admin|writer')
                             <a class="dropdown-item" href="/posts/create">Create Post</a>
                             @endrole

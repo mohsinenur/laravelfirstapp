@@ -5,14 +5,23 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">User Dashboard</div>
+                <div class="card-header">Users</div>
+
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+                </div>
                 @if (count($users) > 0)
                     <table class="table table-striped">
+                        <h2 class="p-3">Users List</h2>
                         <tr>
-                            <th>Id</th>
+                            <th>#Id</th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Type</th>
+                            <th>Role</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -21,7 +30,8 @@
                                     <td>{{$user->id}}</td>
                                     <td>{{$user->name}}</td>
                                     <td>{{$user->email}}</td>
-                                    <td>{{$role}}</td>
+                                    <td>{{preg_replace("/[^a-zA-Z0-9]+/", "", $user->getRoleNames())}}</td>
+                                    
                                     <td>
                                         @role('admin')
                                             <a href="/users/{{$user->id}}/edit" class="btn btn-primary btn-sm">Edit</a>
@@ -44,7 +54,7 @@
                         </div>
                     @endif
                     @else
-                        <p class="p-3">No users found.</p>
+                        <p class="p-3">No user found.</p>
                         @if (count($users) > 0)
                             {{$users->links()}}
                         @endif

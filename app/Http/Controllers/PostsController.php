@@ -116,7 +116,7 @@ class PostsController extends Controller
             'body' => 'required'
         ]);
 
-        // Create Post
+        // Update Post
         $post = Post::find($id);
         $post->title = $request->input('title');
         $post->body = $request->input('body');
