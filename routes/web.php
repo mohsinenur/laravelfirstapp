@@ -35,4 +35,7 @@ Route::get('/dashboard', 'DashboardController@index');
 Route::put('/users/{user}/passreset', 'UsersController@passreset');
 Route::resource('users', 'UsersController');
 
+//datatables route
+Route::get('/usersdata', 'UsersController@getUsersData')->name('get.usersdata');
+
 

@@ -3,52 +3,49 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">Users</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                </div>
-                @if (count($users) > 0)
-                    <table class="table table-striped">
-                        <h2 class="p-3">Users List</h2>
-                        <tr>
-                            <th>#Id</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                        @foreach ($users as $user)
+                {{-- @if (count($users) > 0) --}}
+                    <h2 class="p-3">Users List</h2>
+                    <div class="p-3">
+                        <table class="table table-striped border" id="myTable">
+                            <thead>
                                 <tr>
-                                    <td>{{$user->id}}</td>
-                                    <td>{{$user->name}}</td>
-                                    <td>{{$user->email}}</td>
-                                    <td>{{preg_replace("/[^a-zA-Z0-9]+/", "", $user->getRoleNames())}}</td>
-                                    
-                                    <td>
-                                        @role('admin')
-                                            <a href="/users/{{$user->id}}/edit" class="btn btn-primary btn-sm">Edit</a>
-                                        @endrole
-                                    </td>
-                                    <td>
-                                        @role('admin')
-                                            {!!Form::open(['action' => ['UsersController@destroy', $user->id], 'method' => 'POST', 'class' => 'float-right'])!!}
-                                                {{Form::hidden('_method', 'DELETE')}}
-                                                {{Form::submit('Delete', ['class' => 'btn btn-sm btn-danger'])}}
-                                            {!!Form::close()!!}
-                                        @endrole
-                                    </td>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Created At</th>
+                                    <th>Updated At</th>
+                                    <th></th>
                                 </tr>
-                        @endforeach
-                    </table>
-                    @if (count($users) > 0)
+                            </thead>
+                            {{-- @foreach ($users as $user)
+                                    <tr>
+                                        <td>{{$user->id}}</td>
+                                        <td>{{$user->name}}</td>
+                                        <td>{{$user->email}}</td>
+                                        <td>{{preg_replace("/[^a-zA-Z0-9]+/", "", $user->getRoleNames())}}</td>
+                                        
+                                        <td>
+                                            @role('admin')
+                                                <a href="/users/{{$user->id}}/edit" class="btn btn-primary btn-sm">Edit</a>
+                                            @endrole
+                                        </td>
+                                        <td>
+                                            @role('admin')
+                                                {!!Form::open(['action' => ['UsersController@destroy', $user->id], 'method' => 'POST', 'class' => 'float-right'])!!}
+                                                    {{Form::hidden('_method', 'DELETE')}}
+                                                    {{Form::submit('Delete', ['class' => 'btn btn-sm btn-danger'])}}
+                                                {!!Form::close()!!}
+                                            @endrole
+                                        </td>
+                                    </tr>
+                            @endforeach --}}
+                        </table>
+                    </div>
+                    {{-- @if (count($users) > 0)
                         <div class="p-3">
                             {{$users->links()}}
                         </div>
@@ -58,7 +55,7 @@
                         @if (count($users) > 0)
                             {{$users->links()}}
                         @endif
-                @endif
+                @endif --}}
             </div>
         </div>
     </div>

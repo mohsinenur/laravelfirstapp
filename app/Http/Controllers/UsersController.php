@@ -8,6 +8,8 @@ use App\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
+use Yajra\Datatables\Datatables;
+
 class UsersController extends Controller
 {
     /**
@@ -17,11 +19,13 @@ class UsersController extends Controller
      */
     public function index()
     {
-        if (auth()->user()->hasRole('admin')){
-            // return all user
-            $user = User::paginate(4);
-            return view('users.users')->with('users', $user);
-        }
+        // if (auth()->user()->hasRole('admin')){
+        //     // return all user
+        //     $user = User::paginate(4);
+        //     return view('users.users')->with('users', $user);
+        // }
+
+        return view('users.users', compact('users'));
     }
 
     /**
@@ -94,16 +98,30 @@ class UsersController extends Controller
         // Find user role
         $u_role_st = $user->getRoleNames();
         $u_role = preg_replace("/[^a-zA-Z0-9]+/", "", $u_role_st);
-        // Remove role
-        $user->removeRole($u_role);
-        // Set new role
-        $role_st = $request->input('role');
-        $role = preg_replace("/[^a-zA-Z0-9]+/", "", $role_st);
-        $user->assignRole($role);
+        // return $u_role_st;
         
-        $user->save();
+        if ($u_role == ""){
+            // Set new role
+            $role_st = $request->input('role');
+            $role = preg_replace("/[^a-zA-Z0-9]+/", "", $role_st);
+            $user->assignRole($role);
+            
+            $user->save();
 
-        return redirect('/users')->with('success', 'User info has been updated.');
+            return redirect('/users')->with('success', 'User info has been updated.');
+        }else{
+            $u_role = preg_replace("/[^a-zA-Z0-9]+/", "", $u_role_st);
+            // Remove role
+            $user->removeRole($u_role);
+            // Set new role
+            $role_st = $request->input('role');
+            $role = preg_replace("/[^a-zA-Z0-9]+/", "", $role_st);
+            $user->assignRole($role);
+            
+            $user->save();
+
+            return redirect('/users')->with('success', 'User info has been updated.');
+        }
     }
 
     /**
@@ -114,7 +132,9 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        $user->delete();
+        return redirect('/users')->with('success', 'User deleted.');
     }
 
     /**
@@ -131,5 +151,24 @@ class UsersController extends Controller
         $user->save();
 
         return redirect('/users')->with('success', 'Password has been changed to secret');
+    }
+
+    //for datatables
+    public function getUsersData()
+    {
+        return Datatables::of(User::query())
+        ->setRowClass(function ($user) {
+            return $user->id % 2 == 0 ? 'alert-success' : 'alert-warning';
+        })
+        ->addColumn('role', function(User $user) {
+            $role = preg_replace("/[^a-zA-Z0-9]+/", "", $user->getRoleNames());
+            return $role;
+        })
+        ->addColumn('edit', function(User $user) {
+            $edit = '<a href="/users/'.$user->id.'/edit" class="btn btn-primary btn-sm">Edit</a>';
+            return $edit;
+        })
+        ->rawColumns(['edit',])
+        ->make(true);
     }
 }
